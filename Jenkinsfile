@@ -12,7 +12,7 @@ pipeline{
         stage("Maven build"){
             steps{
                 echo "======== Maven build ========"
-                sh "mvn package -B"
+                sh "mvn install -Dmaven.test.skip=true"
             }
         }
         stage("Docker build"){
