@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: commandes-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mcommandes
+  template:
+    metadata:
+      labels:
+        app: mcommandes
+    spec:
+      containers:
+      - name: mcommandes
+        image: elganiesta/mcommandes:5
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mcommandes-service
+spec:
+  selector:
+    app: mcommandes
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9002
